@@ -1,15 +1,46 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import PokeCard from "./PokeCard";
+import React, { Component } from "react";
 
-const PokeList = () => {
-  return (
-    <div>
-      PokeList will be here
-      <Link to="pokesingle">Some cool link</Link>
-      {/* Outlet component that will display the content of the link in the pokelist */}
-      <Outlet />
-    </div>
-  );
-};
+class Pokelist extends Component {
+  state = {
+    data: [],
+    isLoading: false,
+  };
 
-export default PokeList;
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset=0")
+      .then((res) => res.json())
+      .then((data) => {
+        const fetches = data.results.map((p) => {
+          return fetch(p.url).then((res) => res.json());
+        });
+        Promise.all(fetches).then((res) => {
+          console.log(res);
+          this.setState({ data: res, isLoading: false });
+        });
+      });
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    return (
+      <div className="cards">
+        {this.state.data.map((p) => (
+          <PokeCard
+            name={p.name}
+            key={p.name}
+            image={
+              p.sprites.versions["generation-v"]["black-white"].front_default
+            }
+          />
+        ))}
+      </div>
+    );
+  }
+}
+
+export default Pokelist;

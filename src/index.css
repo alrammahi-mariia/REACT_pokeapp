@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -33,4 +39,57 @@ header {
 li {
   display: inline-block;
   margin: 1rem;
+}
+
+.cards {
+  /* max-width: 1200px; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  color: white;
+}
+
+.card {
+  border-radius: 10px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-color: whitesmoke;
+  box-shadow: 0 0 5px rgba(51, 51, 51, 0.39);
+  text-align: center;
+}
+
+.card img {
+  /* object-fit: cover; */
+  object-position: top;
+  min-height: 150px;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  filter: grayscale(70%);
+}
+
+.card h3 {
+  width: 100%;
+  background-color: rgb(19, 52, 59);
+  border-radius: 0 0 10px 10px;
+  color: white;
+  font-style: bold;
+  padding: 1.2rem;
+  text-transform: capitalize;
+}
+
+.cards div:hover {
+  transform: scale(105%);
+}
+
+.cards div:hover img {
+  filter: none;
+}
+
+.cards div:hover h3 {
+  background-color: rgba(31, 127, 148);
 }
